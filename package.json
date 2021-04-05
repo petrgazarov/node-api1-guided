@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
-    "ketchup": "git fetch && git reset --hard origin/lecture"
+    "ketchup": "git fetch && git reset --hard origin/lecture",
+    "up":"git add . && git commit -m 'push' && git push origin lecture"
   },
   "dependencies": {
     "express": "^4.17.1",
