@@ -61,8 +61,16 @@ server.put("/api/dogs/:id", async (req,res)=>{
     const changes = req.body
 
     try{
-        const updatedDog = await Dog.update(id,changes)
-        res.status(201).json(updatedDog)
+        if(!changes.name || !changes.weight){
+            res.status(422).json("Name and weight required")
+        }else{
+            const updatedDog = await Dog.update(id,changes)
+            if(!updatedDog){
+                res.status(422).json("Dog doesn't exist")
+            }else{
+                res.status(201).json(updatedDog)
+            }            
+        }       
     }catch(err){
         res.status(500).json({message: err.message})
     }
