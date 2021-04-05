@@ -1,5 +1,7 @@
 // IMPORTS AT THE TOP
 const express = require("express")
+const Dog = require("./dog-model.js")
+//const {create, findAll, findById } = require("./dog-model.js")
 
 // INSTANCE OF EXPRESS APP
 const server = express()
@@ -8,16 +10,24 @@ const server = express()
 server.use(express.json())
 
 // ENDPOINTS  req is talking to the server     res is the response given to the client
-server.use("*",(req,res)=>{
-    res.status(200).json({message:"Why hello there!"})
-})
-
 // [GET] / (Hello World endpoint)
+server.use("*",(req,res)=>{
+    res.status(404).json({message:"Princess is in another castle"})
+})
 
 // [GET] /api/dogs/:id (R of CRUD, fetch dog by :id)
 
 // [GET] /api/dogs (R of CRUD, fetch all dogs)
-
+server.get("/api/dogs",(req,res)=>{
+    Dog.findAll()
+        .then(dogs =>{
+            console.log(dogs)
+            res.status(200).json(dogs)
+        })
+        .catch(err=>{
+            res.status(500).json({message: err.message})
+        })
+})
 // [POST] /api/dogs (C of CRUD, create new dog from JSON payload)
 
 // [PUT] /api/dogs/:id (U of CRUD, update dog with :id using JSON payload)
