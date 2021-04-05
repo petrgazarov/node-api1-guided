@@ -1,18 +1,16 @@
 // IMPORTS AT THE TOP
-// IMPORTS AT THE TOP
-// IMPORTS AT THE TOP
+const express = require("express")
 
 // INSTANCE OF EXPRESS APP
-// INSTANCE OF EXPRESS APP
-// INSTANCE OF EXPRESS APP
+const server = express()
 
 // GLOBAL MIDDLEWARE
-// GLOBAL MIDDLEWARE
-// GLOBAL MIDDLEWARE
+server.use(express.json())
 
-// ENDPOINTS
-// ENDPOINTS
-// ENDPOINTS
+// ENDPOINTS  req is talking to the server     res is the response given to the client
+server.use("*",(req,res)=>{
+    res.status(200).json({message:"Why hello there!"})
+})
 
 // [GET] / (Hello World endpoint)
 
@@ -27,5 +25,4 @@
 // [DELETE] /api/dogs/:id (D of CRUD, remove dog with :id)
 
 // EXPOSING THE SERVER TO OTHER MODULES
-// EXPOSING THE SERVER TO OTHER MODULES
-// EXPOSING THE SERVER TO OTHER MODULES
+module.exports = server
