@@ -41,8 +41,33 @@ server.get("/api/dogs",(req,res)=>{
         })
 })
 // [POST] /api/dogs (C of CRUD, create new dog from JSON payload)
-
+server.post("/api/dogs", (req,res)=>{
+    const newDog = req.body
+    if(!newDog.name || !newDog.weight){
+        res.status(422).json("Name and weight required")
+    }else{
+        Dog.create(newDog)
+        .then(dog=>{
+            res.status(201).json(dog)
+        })
+        .catch(err=>{
+            res.status(500).json({message: err.message})
+        })
+    }    
+})
 // [PUT] /api/dogs/:id (U of CRUD, update dog with :id using JSON payload)
+server.put("/api/dogs/:id", async (req,res)=>{
+    const {id} = req.params
+    const changes = req.body
+
+    try{
+        const updatedDog = await Dog.update(id,changes)
+        res.status(201).json(updatedDog)
+    }catch(err){
+        res.status(500).json({message: err.message})
+    }
+})
+
 
 // [DELETE] /api/dogs/:id (D of CRUD, remove dog with :id)
 
