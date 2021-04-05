@@ -4,11 +4,16 @@
   "description": "Guided project for **Node API 1** Module.",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
+    "server": "nodemon index.js",
     "ketchup": "git fetch && git reset --hard origin/lecture"
   },
   "dependencies": {
     "express": "^4.17.1",
     "shortid": "^2.2.16"
+  },
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "nodemon": "^2.0.7"
   }
 }
