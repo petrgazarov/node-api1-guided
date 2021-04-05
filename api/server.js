@@ -75,10 +75,20 @@ server.put("/api/dogs/:id", async (req,res)=>{
         res.status(500).json({message: err.message})
     }
 })
-
-
 // [DELETE] /api/dogs/:id (D of CRUD, remove dog with :id)
-
+server.delete("/api/dogs/:id", async (req,res)=>{
+    try{
+        const {id} = req.params
+        const deletedDog = await Dog.delete(id)
+        if(!deletedDog){
+            res.status(422).json("Dog doesn't exist")
+        }else{
+            res.status(201).json(deletedDog)
+        }        
+    }catch(err){
+        res.status(500).json({message: err.message})
+    }
+})
 
 // [GET] / (Hello World endpoint)
 server.use("*",(req,res)=>{
