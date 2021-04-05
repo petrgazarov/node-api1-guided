@@ -15,14 +15,18 @@ server.use(express.json())
 // [GET] /api/dogs/:id (R of CRUD, fetch dog by :id)
 server.get("/api/dogs/:id",(req,res)=>{
     const idVar = req.params.id
+    // const {id} = req.params
     Dog.findById(idVar)
         .then(dog=>{
-            res.status(200).json(dog)
+            if(!dog){
+                res.status(404).json("Dog not found")
+            }else{
+                res.status(200).json(dog)
+            }            
         })
         .catch(err=>{
             res.status(500).json({message: err.message})
         })
-
 })
 
 // [GET] /api/dogs (R of CRUD, fetch all dogs)
