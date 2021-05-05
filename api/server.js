@@ -16,32 +16,32 @@ const server = express();
 // this method will parse it into an actual object, and save it on the req
 // object as req.body, so that when we access req.body, it will be an actual
 // object.
-// 
+//
 // The handlers we create below are called "middleware functions". When we
 // register them with an HTTP VERB / path combination, Express adds them to a
 // middleware function chain. When requests come in, they are matched with the
 // first middleware function that was registered that matches the VERB/path
-// combination. 
-// 
+// combination.
+//
 // Each middleware function can modify the request and/or response objects, and
 // can choose to either end processing of the request by sending the response
 // back to the client, or it can pass the request on to the next middleware
-// function in the chain. 
-// 
+// function in the chain.
+//
 // We register a handler to a specific HTTP verb by calling the corresponding
 // function on the Express server object. So, server.get() is used to register
 // middleware for certain GET requests. And server.post() is used to register
-// middleware for certain POST requests. 
-// 
+// middleware for certain POST requests.
+//
 // server.use() is used when we want a middleware function to apply to ALL HTTP
-// requests, no matter what verb is used. 
-// 
+// requests, no matter what verb is used.
+//
 // In addition, when we register middleware to an HTTP verb, we specify what
 // path must be requested in order for the middleware to match. If you omit the
-// path, then the middleware matches all paths. 
-// 
-// So, server.use() with no path will match ALL verbs and ALL paths. 
-// 
+// path, then the middleware matches all paths.
+//
+// So, server.use() with no path will match ALL verbs and ALL paths.
+//
 // (Note: you could do server.use('/thispath', middleware), which would match
 // ALL verbs, but only requests to the path /thispath.)
 //
@@ -51,7 +51,7 @@ const server = express();
 // end processing by returning a response, or pass the request on to the next
 // middleware function in the chain. We will learn more about middleware in a
 // future lecture.
-// 
+//
 // express.json() returns a middleware function that we can pass to any
 // registration method (such as .get(), .post(), or .use()). It searches the
 // request body for a JSON string, and converts it into an object, and saves
@@ -59,11 +59,11 @@ const server = express();
 // function, we would have to access the raw text in the request ourselves,
 // verify that it is valid JSON, and convert it into an object to use.
 // express.json() takes care of that for us, and by registering it as middleware
-// for ALL verbs and ALL paths, it converts the JSON body for all requests. 
-// 
+// for ALL verbs and ALL paths, it converts the JSON body for all requests.
+//
 // Because it's the first one to be registered, this middleware is executed
 // first for all requests.
-// 
+//
 server.use(express.json());
 
 //----------------------------------------------------------------------------//
@@ -76,7 +76,7 @@ server.get('/', (req, res) => {
     // JSON object. Just FYI, this method not only sends the response back, but
     // it ensures that the response body is a stringified JSON object, and it
     // sets the Content-Type header to application/json.
-    // 
+    //
     // Note that some responses below call .status() to explicitly set the
     // response status code to a specific value. If you don't call .status() to
     // set the code, it will default to 200 (which is a success code).
@@ -109,7 +109,7 @@ server.get('/api/dogs/:id', async (req, res) => {
 
 //----------------------------------------------------------------------------//
 // [GET] /api/dogs (R of CRUD, fetch all dogs)
-// 
+//
 // This handler is similar to the previous handler, except it returns a collection of dogs.
 //----------------------------------------------------------------------------//
 server.get('/api/dogs', async (req, res) => {
@@ -129,7 +129,7 @@ server.get('/api/dogs', async (req, res) => {
 //----------------------------------------------------------------------------//
 // [POST] /api/dogs (C of CRUD, create new dog from JSON payload)
 //
-// This handler is for POST requests to the /api/dogs collection. 
+// This handler is for POST requests to the /api/dogs collection.
 //
 // The POST HTTP method (verb) is typically used to create a new object in
 // whatever "collection" you specify in the URL. In REST API's, the URL often
@@ -139,7 +139,7 @@ server.get('/api/dogs', async (req, res) => {
 // When we want to create an object, we need to specify the "collection" the
 // object is to be created in, and that is the URL we pass. The HTTP method we
 // use is "POST". It's like we are saying "POST this new object to the
-// collection." 
+// collection."
 //
 // The data that is used to create the new object is passed in the POST request
 // body as a "stringified" JSON object.
@@ -181,8 +181,8 @@ server.put('/api/dogs/:id', async (req, res) => {
   const { id } = req.params;
 
   // crude validation of req.body
-  if (!changes.name || !changes.weight || changes.adopter_id === undefined) {
-    res.status(400).json({ message: 'name, weight and adopter_id are required' });
+  if (!changes.name || !changes.weight) {
+    res.status(400).json({ message: 'name and weight are required' });
   } else {
     // 2- interact with db through helper
     await Dog.update(id, changes)
@@ -191,7 +191,7 @@ server.put('/api/dogs/:id', async (req, res) => {
         if (updatedDog) {
           res.status(200).json(updatedDog);
         } else {
-          res.status(404).json({ message: 'dog not found with id ' + id });
+          res.status(404).json({ message: `Could not find dog with id ${id}` });
         }
       })
       .catch(error => {
@@ -207,7 +207,7 @@ server.put('/api/dogs/:id', async (req, res) => {
 //
 // Notice the "parameter" in the url... preceding a URL "part" name with a colon
 // designates it as a "parameter". You can access all parameters that are
-// identified in the URL using the req.params property (it's an object). 
+// identified in the URL using the req.params property (it's an object).
 //
 // These are typically "variable" parts of the url that will impact what
 // response is we choose to return. In this case, the thing after "/dogs/" is

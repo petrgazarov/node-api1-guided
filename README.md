@@ -15,22 +15,13 @@ In this project we will learn how to create a simple Web API using `Node.js` and
 
 ## Assignment
 
-Build a RESTful Web API to manage _"Dogs"_ and _"Adopters"_ for an animal shelter. Each Dog can have just one Adopter, but an Adopter can rescue any number of Dogs.
+Build a RESTful Web API for an animal shelter to Create, Read, Update and Delete _"Dogs"_ .
 
 A Dog has:
 
 - a unique `id`.
 - a `name`.
 - a `weight`.
-- an `adopter_id` (with a value of `null` until the Dog gets adopted).
-
-An Adopter has:
-
-- a unique `id`.
-- a `first_name`.
-- a `last_name`.
-- an `email`.
-- a `phone_number`.
 
 ### Features
 
@@ -51,7 +42,3 @@ Here is a table with the `endpoint` descriptions:
 | View Dog details      | /api/dogs/{id}     | GET    | a Dog             |
 | Update Dog            | /api/dogs/{id}     | PUT    | updated Dog       |
 | Remove a Dog          | /api/dogs/{id}     | DELETE | deleted Dog       |
-
-## Files with notes:
-- ./api/server.js
-- ./Postman-notes.md
