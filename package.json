@@ -1,0 +1,8 @@
+{
+  "name": "node-api1-guided",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:petrgazarov/node-api1-guided.git",
+  "author": "Petr Gazarov <petrgazarov@gmail.com>",
+  "license": "MIT"
+}
