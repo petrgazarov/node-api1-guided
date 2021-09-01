@@ -1,7 +1,7 @@
+// import the server and start it
 const server = require('./api/server');
+const PORT = 5000;
 
-const port = 5000;
-
-server.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+server.listen(PORT, () => {
+  console.log(`\n*** Server Running on http://localhost:${PORT} ***\n`);
 });
